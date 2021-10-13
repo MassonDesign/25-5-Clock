@@ -2,7 +2,7 @@ function Break({ breakLength, addBreakLength, removeBreakLength }) {
 	return (
 		<div>
 			<div className='flex justify-center content-center items-center'>
-				<button onClick={removeBreakLength}>
+				<button id='break-increment' onClick={removeBreakLength}>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
 						className='h-8 w-8 text-red-400'
@@ -17,9 +17,9 @@ function Break({ breakLength, addBreakLength, removeBreakLength }) {
 					</svg>
 				</button>
 				<div className='flex bg-red-400 w-10 h-10 rounded-full items-center justify-center'>
-					<p>{breakLength}</p>
+					<p id='break-length'>{breakLength}</p>
 				</div>
-				<button onClick={addBreakLength}>
+				<button id='break-decrement' onClick={addBreakLength}>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
 						className='h-8 w-8 text-red-400'
@@ -34,7 +34,9 @@ function Break({ breakLength, addBreakLength, removeBreakLength }) {
 					</svg>
 				</button>
 			</div>
-			<div className='text-white text-center'>Break Length</div>
+			<div className='text-white text-center' id='break-label'>
+				Break Length
+			</div>
 		</div>
 	);
 }

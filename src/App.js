@@ -13,7 +13,7 @@ function App() {
 	const [display, setDisplay] = useState("25:00");
 	const [timer, setTimer] = useState(1500);
 	const [timerState, setTimerSate] = useState("paused");
-	const [timerId, setTimerId] = useState("Session");
+	const [timerLabel, setTimerLabel] = useState("Session");
 	const [intervId, setIntervId] = useState(null);
 
 	useEffect(() => {
@@ -47,23 +47,42 @@ function App() {
 		setTimer((timer) => timer - 1);
 	};
 
+	const reset = () => {
+		if (timerState === "play") {
+			clearInterval(intervId);
+			setIntervId(null);
+			setTimerSate("paused");
+		}
+		setSessionLength(25);
+		setBreakLength(5);
+		setTimer(1500);
+	};
+
 	const addSessionLength = () => {
-		setSessionLength((sessionLength) => sessionLength + 1);
-		setTimer(sessionLength * 60);
-		setTimer((timer) => timer + 60);
+		if (sessionLength < 60) {
+			setSessionLength((sessionLength) => sessionLength + 1);
+			setTimer(sessionLength * 60);
+			setTimer((timer) => timer + 60);
+		} else return;
 	};
 	const removeSessionLength = () => {
-		setSessionLength((sessionLength) => sessionLength - 1);
-		setTimer(sessionLength * 60);
-		setTimer((timer) => timer - 60);
+		if (sessionLength > 1) {
+			setSessionLength((sessionLength) => sessionLength - 1);
+			setTimer(sessionLength * 60);
+			setTimer((timer) => timer - 60);
+		} else return;
 	};
 
 	const addBreakLength = () => {
-		setBreakLength((breakLength) => breakLength + 1);
+		if (breakLength < 60) {
+			setBreakLength((breakLength) => breakLength + 1);
+		} else return;
 	};
 
 	const removeBreakLength = () => {
-		setBreakLength((breakLength) => breakLength - 1);
+		if (breakLength > 1) {
+			setBreakLength((breakLength) => breakLength - 1);
+		} else return;
 	};
 
 	return (
@@ -72,7 +91,7 @@ function App() {
 
 			<main className='flex bg-gray-200 justify-center items-center h-screen w-full m-auto'>
 				<div className='flex flex-col bg-gray-900 h-5/6 w-80 rounded-3xl shadow-2xl'>
-					<Display display={display} timerId={timerId} />
+					<Display display={display} timerLabel={timerLabel} />
 
 					<div className='flex justify-center items-center -mt-8 space-x-6'>
 						<Break
@@ -87,7 +106,11 @@ function App() {
 						/>
 					</div>
 
-					<Controls playpause={playpause} timerState={timerState} />
+					<Controls
+						playpause={playpause}
+						timerState={timerState}
+						reset={reset}
+					/>
 				</div>
 			</main>
 		</div>

@@ -3,7 +3,7 @@ function Session({ sessionLength, addSessionLength, removeSessionLength }) {
 		<div>
 			<div>
 				<div className='flex justify-center content-center items-center'>
-					<button onClick={removeSessionLength}>
+					<button id='session-increment' onClick={removeSessionLength}>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							className='h-8 w-8 text-red-400'
@@ -18,9 +18,9 @@ function Session({ sessionLength, addSessionLength, removeSessionLength }) {
 						</svg>
 					</button>
 					<div className='flex bg-red-400 w-10 h-10 rounded-full items-center justify-center'>
-						<p>{sessionLength}</p>
+						<p id='session-length'>{sessionLength}</p>
 					</div>
-					<button onClick={addSessionLength}>
+					<button id='session-decrement' onClick={addSessionLength}>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							className='h-8 w-8 text-red-400'
@@ -36,7 +36,9 @@ function Session({ sessionLength, addSessionLength, removeSessionLength }) {
 					</button>
 				</div>
 			</div>
-			<div className='text-white text-center'>Session Length</div>
+			<div className='text-white text-center' id='session-label'>
+				Session Length
+			</div>
 		</div>
 	);
 }
