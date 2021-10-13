@@ -18,7 +18,14 @@ function App() {
 
 	useEffect(() => {
 		setDisplay(clock);
-	}, [sessionLength, timer]);
+		if (timer === 0 && timerLabel === "Session") {
+			setTimer(breakLength * 60);
+			setTimerLabel("Break");
+		} else if (timer === 0 && timerLabel === "Break") {
+			setTimer(sessionLength * 60);
+			setTimerLabel("Session");
+		}
+	}, [sessionLength, timer, timerLabel, breakLength]);
 
 	const clock = () => {
 		let minutes = Math.floor(timer / 60);
@@ -33,7 +40,7 @@ function App() {
 	const playpause = () => {
 		if (timerState === "paused") {
 			if (!intervId) {
-				setIntervId(setInterval(countDown, 1000));
+				setIntervId(setInterval(countDown, 100));
 			}
 			setTimerSate("play");
 		} else if (timerState === "play") {
